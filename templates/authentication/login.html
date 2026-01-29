@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+
+    .login-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+
+    .login-header {
+        background: #2c3e50;
+        color: white;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .login-body {
+        padding: 40px;
+        background: white;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 12px;
+        border: 1px solid #e0e0e0;
+        background-color: #f8f9fa;
+        transition: all 0.3s;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.2);
+        border-color: #764ba2;
+        background-color: white;
+    }
+
+    .btn-login {
+        background: linear-gradient(to right, #667eea, #764ba2);
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: transform 0.2s;
+    }
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+        color: white;
+    }
+
+    .brand-icon {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="col-md-5 col-lg-4">
+            <div class="card login-card">
+                <div class="login-header">
+                    <div class="brand-icon">🛡️</div>
+                    <h3 class="mb-0">Welcome Back</h3>
+                    <p class="text-white-50 mb-0">Secure Network Access</p>
+                </div>
+                <div class="login-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                        <div class="alert alert-danger py-2 mb-3 small">
+                            Invalid username or password.
+                        </div>
+                        {% endif %}
+
+                        <div class="mb-4">
+                            <label class="form-label text-muted small fw-bold">USERNAME</label>
+                            <input type="text" name="username" class="form-control" placeholder="Enter your username"
+                                required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-muted small fw-bold">PASSWORD</label>
+                            <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-login">Sign In</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p class="small text-muted mb-0">Don't have an account? <a href="{% url 'register' %}"
+                                class="text-decoration-none fw-bold" style="color: #764ba2;">Register Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

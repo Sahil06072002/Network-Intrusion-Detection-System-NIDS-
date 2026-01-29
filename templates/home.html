@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<div class="hero-section text-center mb-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="mb-3">
+                    <span class="badge bg-primary rounded-pill px-3 py-2">v1.0.0 Now Available</span>
+                </div>
+                <h1 class="hero-title mb-4">AI-Powered Network Defense</h1>
+                <p class="lead text-light opacity-75 mb-5">
+                    Advanced Intrusion Detection System using Machine Learning to detect, analyze,
+                    and prevent cyber threats in real-time.
+                </p>
+                <div class="d-flex gap-3 justify-content-center">
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-5 fw-bold">Login to Command Center</a>
+                    <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg px-5">Register New Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container mb-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card feature-card p-4 text-center">
+                <div class="feature-icon"><i class="bi bi-activity"></i></div>
+                <h3 class="h4 fw-bold">Real-Time Detection</h3>
+                <p class="text-muted">
+                    Capture and analyze network packets instantly. Our AI models classify traffic
+                    as benign or malicious with high accuracy.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card feature-card p-4 text-center">
+                <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+                <h3 class="h4 fw-bold">Active Defense</h3>
+                <p class="text-muted">
+                    Automated threat response system that logs attacks and provides actionable
+                    intelligence to secure your infrastructure.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card feature-card p-4 text-center">
+                <div class="feature-icon"><i class="bi bi-graph-up-arrow"></i></div>
+                <h3 class="h4 fw-bold">Visual Analytics</h3>
+                <p class="text-muted">
+                    Comprehensive dashboard with interactive charts, trend analysis, and PDF
+                    reporting capabilities.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer Info -->
+<div class="container border-top pt-4">
+    <div class="row text-center text-muted small">
+        <div class="col-12">
+            <p>Powered by <strong>Django</strong>, <strong>Scikit-Learn</strong>, and <strong>Bootstrap 5</strong></p>
+            <p>&copy; {% now "Y" %} NIDS Project. All rights reserved.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

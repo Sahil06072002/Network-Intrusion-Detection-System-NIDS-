@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Alert #{{ alert.id }} Details</h3>
+            {% if alert.is_resolved %}
+            <span class="badge bg-success">Resolved</span>
+            {% else %}
+            <span class="badge bg-warning text-dark">Active</span>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h5>Timestamp</h5>
+                    <p class="text-muted">{{ alert.timestamp }}</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Severity</h5>
+                    <p class="text-uppercase fw-bold 
+                        {% if alert.severity == 'critical' %}text-danger
+                        {% elif alert.severity == 'high' %}text-warning
+                        {% else %}text-info{% endif %}">
+                        {{ alert.severity }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h5>Attack Type</h5>
+                    <p>{{ alert.attack_type }}</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Source IP</h5>
+                    <p>{{ alert.source_ip }}</p>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <h5>Message</h5>
+                <div class="alert alert-secondary">
+                    {{ alert.message }}
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+                <a href="{% url 'alert_list' %}" class="btn btn-secondary">Back to List</a>
+                {% if not alert.is_resolved %}
+                <a href="{% url 'resolve_alert' alert.id %}" class="btn btn-success">Mark as Resolved</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

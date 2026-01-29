@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Upload Traffic Data (CSV)</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_file" class="form-label">Select CSV File</label>
+                        {{ form.file }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_description" class="form-label">Description (Optional)</label>
+                        <textarea name="description" id="id_description" class="form-control" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Upload & Analyze</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

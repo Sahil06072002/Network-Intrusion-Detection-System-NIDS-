@@ -1,0 +1,60 @@
+MANUAL GITHUB UPLOAD GUIDE
+==========================
+
+Since the automated process encountered issues, here are the exact commands to run in your terminal manually.
+
+STEP 1: INITIALIZE AND CONFIGURE
+--------------------------------
+Run these commands one by one in your project folder (D:\CDAC\project\new):
+
+1. Initialize Git (if not already done):
+   git init
+
+2. Configure your identity (Required for commit):
+   git config --global user.name "AbhineshLodhi"
+   git config --global user.email "abhineshlodhi82@gmail.com"
+
+
+STEP 2: COMMIT YOUR CODE
+------------------------
+3. Stage all files:
+   git add .
+
+4. Commit the files:
+   git commit -m "Initial commit"
+
+
+STEP 3: LINK TO GITHUB
+----------------------
+5. Remove any existing remote (to be safe):
+   git remote remove origin
+
+6. Add your repository URL:
+   git remote add origin https://github.com/Abhineshlodhi/nids_V1_project.git
+
+
+STEP 4: PUSH TO GITHUB
+----------------------
+7. Rename branch to main:
+   git branch -M main
+
+8. Push your code:
+   git push -u origin main
+
+
+STEP 5: HOW TO PUSH NEW CHANGES (Ongoing)
+-----------------------------------------
+Whenever you make new changes that you want to push to GitHub:
+
+1. Stage the new changes:
+   git add .
+
+2. Commit the changes:
+   git commit -m "Describe what you changed"
+
+3. Push to GitHub:
+   git push origin main
+
+
+NOTE:
+If 'git push' asks for a password, use your GitHub Personal Access Token, not your account password.

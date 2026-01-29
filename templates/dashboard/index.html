@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Total Packets Analyzed</div>
+            <div class="card-body">
+                <h2 class="card-title">{{ total_packets }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-danger mb-3">
+            <div class="card-header">Total Attacks Detected</div>
+            <div class="card-body">
+                <h2 class="card-title">{{ total_attacks }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Active Alerts</div>
+            <div class="card-body">
+                <h2 class="card-title">{{ total_alerts }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Files Uploaded</div>
+            <div class="card-body">
+                <h2 class="card-title">{{ total_files }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">Attack Type Distribution</div>
+            <div class="card-body">
+                <canvas id="attackPieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">Analysis Activity (Last 7 Days)</div>
+            <div class="card-body">
+                <canvas id="trendLineChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Recent Alerts</span>
+                <a href="{% url 'alert_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Severity</th>
+                                <th>Message</th>
+                                <th>Source IP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for alert in recent_alerts %}
+                            <tr>
+                                <td>{{ alert.timestamp|date:"Y-m-d H:i" }}</td>
+                                <td>
+                                    <span class="badge 
+                                        {% if alert.severity == 'critical' %}bg-danger
+                                        {% elif alert.severity == 'high' %}bg-warning text-dark
+                                        {% else %}bg-info text-dark{% endif %}">
+                                        {{ alert.severity|upper }}
+                                    </span>
+                                </td>
+                                <td>{{ alert.message }}</td>
+                                <td>{{ alert.source_ip }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No recent alerts.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Pie Chart
+    const ctxPie = document.getElementById('attackPieChart').getContext('2d');
+    new Chart(ctxPie, {
+        type: 'doughnut',
+        data: {
+            labels: {{ attack_labels| safe }},
+        datasets: [{
+            data: {{ attack_data| safe }},
+        backgroundColor: [
+            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+        ]
+            }]
+        },
+        options: { responsive: true }
+    });
+
+    // Line Chart
+    const ctxLine = document.getElementById('trendLineChart').getContext('2d');
+    new Chart(ctxLine, {
+        type: 'line',
+        data: {
+            labels: {{ trend_labels| safe }},
+        datasets: [{
+            label: 'Packets Analyzed',
+            data: {{ trend_data| safe }},
+        borderColor: '#36A2EB',
+        tension: 0.1,
+        fill: true,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)'
+            }]
+        },
+        options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+    }
+    });
+</script>
+{% endblock %}

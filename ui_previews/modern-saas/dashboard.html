@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Preview - Command Center</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Embedding the CSS for a self-contained preview */
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-cyber: #0ea5e9;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .navbar {
+            background-color: var(--bg-card) !important;
+            border-bottom: 1px solid #334155;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid #334155;
+            color: var(--text-primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-header {
+            border-bottom: 1px solid #334155;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .stat-card {
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .text-cyber {
+            color: var(--accent-cyber);
+        }
+
+        .text-green {
+            color: var(--accent-green);
+        }
+
+        .text-yellow {
+            color: var(--accent-yellow);
+        }
+
+        .text-red {
+            color: var(--accent-red);
+        }
+
+        .blink-red {
+            animation: blink-animation 1.5s infinite;
+        }
+
+        @keyframes blink-animation {
+            0% {
+                background-color: rgba(239, 68, 68, 0.1);
+            }
+
+            50% {
+                background-color: rgba(239, 68, 68, 0.3);
+            }
+
+            100% {
+                background-color: rgba(239, 68, 68, 0.1);
+            }
+        }
+
+        .table {
+            color: var(--text-secondary);
+        }
+
+        .table thead th {
+            border-bottom: 1px solid #334155;
+            color: var(--text-primary);
+        }
+
+        .table td {
+            border-bottom: 1px solid #334155;
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            margin-right: 5px;
+            box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-shield-lock-fill me-2"></i>NIDS
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-speedometer2 me-1"></i>
+                            Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-bell me-1"></i> Alerts</a></li>
+                    <li class="nav-item dropdown ms-lg-3">
+                        <a class="nav-link dropdown-toggle btn btn-outline-secondary border-0 text-white" href="#"
+                            role="button">
+                            <i class="bi bi-person-circle me-1"></i> Admin_User
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-4 py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold mb-0">🛡️ SECURITY COMMAND CENTER</h2>
+                <p class="text-secondary mb-0">Mocked Preview: Real-Time Network Monitoring</p>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center bg-dark rounded px-3 py-2 border border-secondary">
+                    <span class="live-indicator"></span>
+                    <span class="small fw-bold text-green">LIVE MONITORING99</span>
+                </div>
+                <div class="text-end">
+                    <div class="small text-secondary">SYSTEM HEALTH</div>
+                    <div class="fw-bold text-green">HEALTHY</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="card p-3 stat-card h-100 border-start border-4 border-primary">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="stat-label">TOTAL DETECTED</div>
+                            <div class="stat-value">1,284</div>
+                        </div>
+                        <i class="bi bi-shield-exclamation fs-2 text-primary"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 stat-card h-100 border-start border-4 border-success">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="stat-label">NORMAL TRAFFIC</div>
+                            <div class="stat-value">85%</div>
+                        </div>
+                        <i class="bi bi-check-circle fs-2 text-success"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 stat-card h-100 border-start border-4 border-danger">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="stat-label">MALICIOUS TRAFFIC</div>
+                            <div class="stat-value">15%</div>
+                        </div>
+                        <i class="bi bi-bug fs-2 text-danger"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 stat-card h-100">
+                    <div class="stat-label mb-2">ACTIVE MODEL</div>
+                    <div class="fw-bold text-cyber">RandomForest_v1</div>
+                    <div class="small text-secondary mt-1">Accuracy: <span class="text-white">98.2%</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-lg-8">
+                <div class="card h-100">
+                    <div class="card-header">Traffic Analysis (Last 1 hour)
+                    </div>
+                    <div class="card-body">
+                        <canvas id="trendChart" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header">Attack Distribution</div>
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <canvas id="distributionChart" style="max-height: 250px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="card h-100">
+                    <div class="card-header">Latest Threat Feed</div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table mb-0 table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>TIMESTAMP</th>
+                                        <th>SEVERITY</th>
+                                        <th>THREAT TYPE</th>
+                                        <th>SOURCE IP</th>
+                                        <th>STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="blink-red">
+                                        <td class="font-monospace small">10:45:22</td>
+                                        <td><span class="badge bg-danger">CRITICAL</span></td>
+                                        <td>DDoS Attack Attempt</td>
+                                        <td class="font-monospace">192.168.1.105</td>
+                                        <td><span class="text-danger">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-monospace small">10:42:15</td>
+                                        <td><span class="badge bg-warning text-dark">HIGH</span></td>
+                                        <td>Port Scanning Detected</td>
+                                        <td class="font-monospace">172.16.0.45</td>
+                                        <td><span class="text-success">Resolved</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = '#334155';
+
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Packets',
+                    data: [1200, 1900, 1500, 2500, 2100, 3100, 2800],
+                    borderColor: '#0ea5e9',
+                    backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        const distCtx = document.getElementById('distributionChart').getContext('2d');
+        new Chart(distCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['DoS', 'Probe', 'U2R', 'R2L'],
+                datasets: [{
+                    data: [45, 25, 15, 15],
+                    backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6', '#10b981'],
+                    borderWidth: 0
+                }]
+            },
+            options: { cutout: '70%', plugins: { legend: { position: 'bottom' } } }
+        });
+    </script>
+</body>
+
+</html>

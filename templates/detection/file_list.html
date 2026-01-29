@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Uploaded Traffic Files</h2>
+<div class="table-responsive">
+    <table class="table table-hover bg-white rounded">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Uploaded At</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+            <tr>
+                <td>{{ file.id }}</td>
+                <td>{{ file.uploaded_at|date:"Y-m-d H:i" }}</td>
+                <td>{{ file.description|default:"-" }}</td>
+                <td>
+                    {% if file.processed %}
+                    <span class="badge bg-success">Processed</span>
+                    {% else %}
+                    <span class="badge bg-warning">Pending</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if file.processed %}
+                    <a href="{% url 'file_detail' file.id %}" class="btn btn-sm btn-primary">View Results</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No files uploaded yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
